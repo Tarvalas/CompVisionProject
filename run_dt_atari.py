@@ -19,7 +19,7 @@ import blosc
 import argparse
 from create_dataset import create_dataset
 ###
-#import wandb
+import random
 ###
 
 
@@ -68,7 +68,7 @@ if __name__ == '__main__':
     parser.add_argument('--trajectories_per_buffer', type=int, default=10, help='Number of trajectories to sample from each of the buffers.')
     parser.add_argument('--data_dir_prefix', type=str, default='./dqn_replay/')
     ###
-    #parser.add_argument('--log_to_wandb', '-w', type=bool, default=False)
+    parser.add_argument('--log_to_wandb', '-w', type=bool, default=False)
     ###
     args = parser.parse_args()
 
@@ -85,20 +85,14 @@ if __name__ == '__main__':
     )
 
     ###
-    #log_to_wandb = args.log_to_wandb
-    ###
+    log_to_wandb = args.log_to_wandb
 
-    ###
-    # env_name = args.game
-    # group_name = f'{exp_prefix}-{env_name}'
-    # exp_prefix = f'{group_name}-{random.randint(int(1e5), int(1e6) - 1)}
-    # if log_to_wandb:
-    #     wandb.init(
-    #         name=exp_prefix,
-    #         group=group_name,
-    #         project='decision-transformer',
-    #         config=vars(args)
-    #     )
+    exp_prefix = 'atari-experiment'
+    env_name = args.game
+    group_name = f'{exp_prefix}-{env_name}'
+    exp_prefix = f'{group_name}-{random.randint(int(1e5), int(1e6) - 1)}'
+    config = vars(args)
+    log_args = (exp_prefix, group_name, 'decision-transformer', config)
     ###
 
     train_dataset = StateActionReturnDataset(obss, args.context_length*3, actions, done_idxs, rtgs, timesteps)
@@ -116,4 +110,5 @@ if __name__ == '__main__':
                         num_workers=0, seed=args.seed, model_type=args.model_type, game=args.game, max_timestep=max(timesteps))
     trainer = Trainer(model, train_dataset, None, tconf)
 
-    trainer.train()
+    ### Added log_to_wandb arg
+    trainer.train(log_to_wandb, log_args)
