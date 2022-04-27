@@ -64,11 +64,13 @@ if __name__ == '__main__':
     parser.add_argument('--num_steps', type=int, default=100)#500000)
     parser.add_argument('--num_buffers', type=int, default=50)
     parser.add_argument('--game', type=str, default='Breakout')
-    parser.add_argument('--batch_size', type=int, default=128)
+    parser.add_argument('--batch_size', type=int, default=256)
     parser.add_argument('--trajectories_per_buffer', type=int, default=10, help='Number of trajectories to sample from each of the buffers.')
     parser.add_argument('--data_dir_prefix', type=str, default='./dqn_replay/')
     ###
     parser.add_argument('--log_to_wandb', '-w', type=bool, default=False)
+    parser.add_argument('--n_embd', type=int, default=128)
+    parser.add_argument('--flat', type=bool, default=False)
     ###
     args = parser.parse_args()
 
@@ -100,8 +102,8 @@ if __name__ == '__main__':
 
     # n_embd = 128
     mconf = GPTConfig(train_dataset.vocab_size, train_dataset.block_size,
-                    n_layer=6, n_head=8, n_embd=128, model_type=args.model_type, max_timestep=max(timesteps))
-    model = GPT(mconf)
+                    n_layer=6, n_head=8, n_embd=args.n_embd, model_type=args.model_type, max_timestep=max(timesteps))
+    model = GPT(mconf, args.flat)
 
     # initialize a trainer instance and kick off training
     epochs = args.epochs
