@@ -5,7 +5,7 @@ Start by building the decision transformer as seen in the original codebase here
 
 We used the Atari folder, and benchmarked on the Atari game Breakout.
 
-After setting up the environment, ensure that you've downloaded the ROM files for the Atari games. If the code endlessly loops while searching for the trajectory files, make sure the ROMs and the path to the dqn_replay folder are visible. This can be updated in the input argument of the run_dt_atari.py script - specifically the --data_dir_prefix argument. You'll want to replace  replace the ```model_atari.py```, ```run_dt_atari.py```, and ```trainer_atari.py``` from the original repository in order to recreate our network and experiments.
+After setting up the environment, ensure that you've downloaded the ROM files for the Atari games. If the code endlessly loops while searching for the trajectory files, make sure the ROMs and the path to the dqn_replay folder are visible. This can be updated in the input argument of the ```run_dt_atari.py``` script - specifically the ```--data_dir_prefix``` argument. You'll want to replace  replace the ```model_atari.py```, ```run_dt_atari.py```, and ```trainer_atari.py``` from the original repository in order to recreate our network and experiments.
 
 # Atari
 
