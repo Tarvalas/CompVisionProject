@@ -1,9 +1,11 @@
 # CompVisionProject
-Semester project for graduate computer vision course utilizing transformers.
+Semester project for graduate computer vision course utilizing transformers. Our raw latex paper is included in the Paper folder.
 
 Start by building the decision transformer as seen in the original codebase here: https://github.com/kzl/decision-transformer/blob/master/atari/readme-atari.md
 
-Afterwards, replace their model and run python files with ours to insert our network.
+We used the Atari folder, and benchmarked on the Atari game Breakout.
+
+After setting up the environment, ensure that you've downloaded the ROM files for the Atari games. If the code endlessly loops while searching for the trajectory files, make sure the ROMs and the path to the dqn_replay folder are visible. This can be updated in the input argument of the run_dt_atari.py script - specifically the --data_dir_prefix argument. You'll want to replace  replace the ```model_atari.py```, ```run_dt_atari.py```, and ```trainer_atari.py``` from the original repository in order to recreate our network and experiments.
 
 # Atari
 
